@@ -56,21 +56,25 @@ export default {
           { required: true, message: '请输入手机号', trigger: 'blur' },
           { validator: checkMobile, trigger: 'blur' }
         ],
-        code: [
-          { required: true, message: '请输入验证码', trigger: 'blur' }
-        ]
+        code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
       }
     }
   },
   methods: {
     // 整体校验
     login () {
-      this.$refs['form'].validate((valid) => {
+      this.$refs['form'].validate(valid => {
         if (valid) {
-          // 发请求 校验手机号和验证码 后台
-          console.log('ok')
-        } else {
-          console.log('error submit!!')
+          this.$http
+            .post('authorizations', this.loginForm)
+            .then(res => {
+              // 如果验证成功，跳转到首页
+              this.$router.push('/')
+            })
+            .catch(() => {
+              // 如果验证失败，提示信息
+              this.$message.error('手机号或验证码错误')
+            })
         }
       })
     }
