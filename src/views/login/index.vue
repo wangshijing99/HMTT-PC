@@ -6,22 +6,26 @@
       <!-- 表单容器  ref="form" 操作dom|组件
       :model="form" 绑定表单数据对象
       label-width="80px" 表单输入框前的文字的宽度-->
-      <el-form ref="form" :model="loginForm">
+      <el-form ref="form" :model="loginForm" :rules="loginRules" status-icon>
         <!-- 表单选项-->
-        <el-form-item>
+        <el-form-item prop="mobile">
           <!-- 表单元素 -->
           <el-input placeholder="请输入手机号码" v-model="loginForm.mobile"></el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="code">
           <!-- 表单元素 -->
-          <el-input placeholder="请输入验证码" style="width:235px;margin-right:10px" v-model="loginForm.code"></el-input>
+          <el-input
+            placeholder="请输入验证码"
+            style="width:235px;margin-right:10px"
+            v-model="loginForm.code"
+          ></el-input>
           <el-button>发送验证码</el-button>
         </el-form-item>
         <el-form-item>
           <el-checkbox :value="true">我已阅读并同意用户协议和隐私条款</el-checkbox>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" style="width:100%">立即登录</el-button>
+          <el-button type="primary" style="width:100%" @click="login">立即登录</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -31,12 +35,44 @@
 <script>
 export default {
   data () {
+    // 在校验规则定义之前 定义函数  在return之前定义
+    var checkMobile = (rule, value, callback) => {
+      // 通过校验逻辑判断成功失败
+      // 手机号格式：1开头 第二位3-9 9个数字结尾
+      if (/^1[3-9]\d{9}$/.test(value)) {
+        callback()
+      } else {
+        callback(new Error('手机号格式不对'))
+      }
+    }
     return {
       // 登录表单数据初始化
       loginForm: {
         mobile: '',
         code: ''
+      },
+      loginRules: {
+        mobile: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { validator: checkMobile, trigger: 'blur' }
+        ],
+        code: [
+          { required: true, message: '请输入验证码', trigger: 'blur' }
+        ]
       }
+    }
+  },
+  methods: {
+    // 整体校验
+    login () {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          // 发请求 校验手机号和验证码 后台
+          console.log('ok')
+        } else {
+          console.log('error submit!!')
+        }
+      })
     }
   }
 }
