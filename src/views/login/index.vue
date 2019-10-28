@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import local from '@/utils/store'
 export default {
   data () {
     // 在校验规则定义之前 定义函数  在return之前定义
@@ -69,6 +70,8 @@ export default {
             .post('authorizations', this.loginForm)
             .then(res => {
               // 如果验证成功，跳转到首页
+              // 保存用户信息（即存储tocken）
+              local.setUser(res.data.data)
               this.$router.push('/')
             })
             .catch(() => {
