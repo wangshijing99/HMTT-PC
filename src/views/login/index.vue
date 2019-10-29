@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import local from '@/utils/store'
+import local from '@/utils/local.js'
 export default {
   data () {
     // 在校验规则定义之前 定义函数  在return之前定义
@@ -64,20 +64,30 @@ export default {
   methods: {
     // 整体校验
     login () {
-      this.$refs['form'].validate(valid => {
+      this.$refs['form'].validate(async valid => {
+        // if (valid) {
+        //   this.$http
+        //     .post('authorizations', this.loginForm)
+        //     .then(res => {
+        //       // 如果验证成功，跳转到首页
+        //       // 保存用户信息（即存储tocken）
+        //       local.setUser(res.data.data)
+        //       this.$router.push('/')
+        //     })
+        //     .catch(() => {
+        //       // 如果验证失败，提示信息
+        //       this.$message.error('手机号或验证码错误')
+        //     })
+        // }
         if (valid) {
-          this.$http
-            .post('authorizations', this.loginForm)
-            .then(res => {
-              // 如果验证成功，跳转到首页
-              // 保存用户信息（即存储tocken）
-              local.setUser(res.data.data)
-              this.$router.push('/')
-            })
-            .catch(() => {
-              // 如果验证失败，提示信息
-              this.$message.error('手机号或验证码错误')
-            })
+          // 当一段代码不能保证一定没有报错  try {} catch (e) {} 捕获异常处理异常
+          try {
+            const { data: { data } } = await this.$http.post('authorizations', this.loginForm)
+            local.setUser(data)
+            this.$router.push('/')
+          } catch (e) {
+            this.$message.error('手机号或验证码错误')
+          }
         }
       })
     }
