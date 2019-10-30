@@ -49,13 +49,15 @@
         <span class="text">江苏传智播客科技教育有限公司</span>
         <el-dropdown class="dropdown">
           <span class="el-dropdown-link">
-            <img class="headIcon" src="../../assets/avatar.jpg" alt />
-            <span class="userName">用户名称</span>
+            <img class="headIcon" :src="userInfo.photo" alt />
+            <span class="userName">{{userInfo.name}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-setting">个人设置</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-unlock">退出登录</el-dropdown-item>
+          <!-- 把事件绑定在 组件解析后的原生dom上 -->
+          <!-- 事件修饰符：prevent once stop  native意思是把事件绑定在原生dom上 -->
+            <el-dropdown-item icon="el-icon-setting" @click.native="setting">个人设置</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-unlock" @click.native="loginout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -68,17 +70,32 @@
 </template>
 
 <script>
+import local from '@/utils/local'
 export default {
   data () {
     return {
-      isOpen: true
+      isOpen: true,
+      userInfo: {}
     }
   },
   methods: {
     toggleMenu () {
       // 切换左侧导航栏收起与展开
       this.isOpen = !this.isOpen
+    },
+    setting () {
+      this.$router.push('/setting')
+    },
+    loginout () {
+      local.delUser()
+      this.$router.push('/login')
     }
+  },
+  created () {
+    // 设置用户信息
+    const user = local.getUser()
+    this.userInfo.name = user.name
+    this.userInfo.photo = user.photo
   }
 }
 </script>
