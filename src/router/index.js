@@ -11,6 +11,8 @@ import Welcome from '@/views/welcome'
 import NotFound from '@/views/404'
 // 引入工具
 import local from '@/utils/local'
+// 引入组件article
+import Article from '@/views/article'
 
 // 使用vue-router
 Vue.use(VueRouter)
@@ -28,7 +30,8 @@ const router = new VueRouter({
     component: Home,
     children: [
       // 欢迎
-      { path: '/', component: Welcome }
+      { path: '/', component: Welcome },
+      { path: '/article', component: Article }
     ] },
   // 匹配  不符合路由规则的路径
   { path: '*', component: NotFound }

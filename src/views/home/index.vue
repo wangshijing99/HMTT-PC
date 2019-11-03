@@ -4,7 +4,7 @@
       <!-- 通过类名的绑定来改变logo图片的切换 -->
       <div class="logo" :class="{smallLogo:!isOpen}"></div>
       <el-menu
-        default-active="/"
+        :default-active="$route.path"
         background-color="#002033"
         text-color="#fff"
         active-text-color="#ffd04b"

@@ -4,9 +4,24 @@ import axios from 'axios'
 import local from '@/utils/local.js'
 // 引入router
 import router from '@/router'
+// 引入json-bigint
+import jsonBigInt from 'json-bigint'
 
 // 对axios进行配置
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
+
+// `transformResponse` 在传递给 then/catch 前，允许修改响应数据
+// 对ID进行处理，避免误差
+axios.defaults.transformResponse = [(data) => {
+  // 对 data 进行任意转换处理
+  // 对data进行格式转换  data就是后台响应的json字符串
+  // 如果没数据呢？data === null 使用jsonBigInt.parse(null) 报错
+  try {
+    return jsonBigInt.parse(data)
+  } catch (err) {
+    return data
+  }
+}]
 
 // 设置请求拦截器
 axios.interceptors.request.use(function (config) {
