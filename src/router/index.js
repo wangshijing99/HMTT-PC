@@ -13,6 +13,8 @@ import NotFound from '@/views/404'
 import local from '@/utils/local'
 // 引入组件article
 import Article from '@/views/article'
+// 引入组件images
+import Images from '@/views/images'
 
 // 使用vue-router
 Vue.use(VueRouter)
@@ -31,7 +33,8 @@ const router = new VueRouter({
     children: [
       // 欢迎
       { path: '/', component: Welcome },
-      { path: '/article', component: Article }
+      { path: '/article', component: Article },
+      { path: '/images', component: Images }
     ] },
   // 匹配  不符合路由规则的路径
   { path: '*', component: NotFound }
