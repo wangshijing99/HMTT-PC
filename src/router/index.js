@@ -19,6 +19,10 @@ import Images from '@/views/images'
 import Publish from '@/views/publish'
 // 引入组件comment
 import Comment from '@/views/comment'
+// 引入组件Fans
+import Fans from '@/views/fans'
+// 引入组件setting
+import Setting from '@/views/setting'
 
 // 使用vue-router
 Vue.use(VueRouter)
@@ -40,7 +44,9 @@ const router = new VueRouter({
       { path: '/article', component: Article },
       { path: '/images', component: Images },
       { path: '/publish', component: Publish },
-      { path: '/comment', component: Comment }
+      { path: '/comment', component: Comment },
+      { path: '/fans', component: Fans },
+      { path: '/setting', component: Setting }
     ] },
   // 匹配  不符合路由规则的路径
   { path: '*', component: NotFound }

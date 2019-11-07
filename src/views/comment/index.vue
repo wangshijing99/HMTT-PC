@@ -65,7 +65,7 @@ export default {
       this.reqParams.page = newPage
       this.getComments()
     },
-    // 切换 打开 与 关闭（需传入参数id 、待切换的状态：status）
+    // 切换 打开 与 关闭（需传入参数id 、待切换的状态：status）//使用ElementUI-弹框-确认信息组件
     toggleStatus (id, status) {
       const text = status ? '您确认要打开评论吗?' : '您确认关闭评论吗?如果关闭用户将无法对该文章进行评论。'
       this.$confirm(text, '温馨提示', {

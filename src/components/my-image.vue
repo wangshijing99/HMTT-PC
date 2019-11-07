@@ -3,6 +3,7 @@
   <div class="my-image">
     <!-- 按钮 -->
     <div class="btn_box" @click="open">
+      <!-- 动态绑定本地图片，需自己打包编译并显示 -->
       <img :src="value||btnImage" alt />
     </div>
     <el-dialog :visible.sync="dialogVisible" width="750px">

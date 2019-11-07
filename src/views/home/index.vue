@@ -71,11 +71,16 @@
 
 <script>
 import local from '@/utils/local'
+import eventBus from '@/eventBus'
 export default {
   data () {
     return {
       isOpen: true,
-      userInfo: {}
+      // 如果响应式的数据，建议先申明
+      userInfo: {
+        name: '',
+        photo: ''
+      }
     }
   },
   methods: {
@@ -96,6 +101,14 @@ export default {
     const user = local.getUser()
     this.userInfo.name = user.name
     this.userInfo.photo = user.photo
+    // 绑定事件  接收修改的name数据
+    eventBus.$on('updateName', (name) => {
+      this.userInfo.name = name
+    })
+    // 绑定事件  接收修改的photo数据
+    eventBus.$on('updatePhoto', (photo) => {
+      this.userInfo.photo = photo
+    })
   }
 }
 </script>
