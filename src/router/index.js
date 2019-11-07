@@ -17,6 +17,8 @@ import Article from '@/views/article'
 import Images from '@/views/images'
 // 引入组件publish
 import Publish from '@/views/publish'
+// 引入组件comment
+import Comment from '@/views/comment'
 
 // 使用vue-router
 Vue.use(VueRouter)
@@ -37,7 +39,8 @@ const router = new VueRouter({
       { path: '/', component: Welcome },
       { path: '/article', component: Article },
       { path: '/images', component: Images },
-      { path: '/publish', component: Publish }
+      { path: '/publish', component: Publish },
+      { path: '/comment', component: Comment }
     ] },
   // 匹配  不符合路由规则的路径
   { path: '*', component: NotFound }
