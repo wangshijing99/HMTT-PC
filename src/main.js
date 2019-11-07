@@ -7,7 +7,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import router from '@/router'
 // import router from './router/index.js'
 
-// 引入面包屑组件(基于Vue的插件)
+// 引入基于Vue的插件
 import plugin from '@/components'
 // 引入axios,进行全局挂载
 import axios from '@/api/index.js'

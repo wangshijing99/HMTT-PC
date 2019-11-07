@@ -155,7 +155,7 @@ export default {
   padding-top: 20px;
   .img_item {
     width: 160px;
-    height: 160px;
+    height: 150px;
     border: 1px dashed #ddd;
     display: inline-block;
     margin-right: 35px;
